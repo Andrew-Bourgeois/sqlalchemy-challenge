@@ -92,4 +92,4 @@ A **start/end route** that:
 
 ### **RESOURCES**
 * Starter Files: https://static.bc-edx.com/data/dl-1-2/m10/lms/starter/Starter_Code.zip 
-* 
+* Sorting SQLAlchemy results in descending order: https://stackoverflow.com/questions/4186062/sqlalchemy-order-by-descending 
