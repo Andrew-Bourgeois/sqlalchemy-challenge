@@ -160,23 +160,24 @@ def tobs():
 @app.route("/api/v1.0/<start>")
 def start_var(start):
 
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
-
-    # validate exist and dates are in the range of the dataset
-    date_check = session.query(func.min(Measurement.date), func.max(Measurement.date)).all()
-
-    if start < date_check[0][0] or start > date_check[0][1]:
-        session.close()
-        return "ERROR: start is either not within range of the dataset, or not formatted as YYY-MM-DD"
-    
     """
         Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a specified start or start-end range.
 
         For a specified start, calculate TMIN, TAVG, and TMAX for all the dates greater than or equal to the start date.
 
-        If date is out of range, return a 404 error "no data found in this range"
+        If date is out of range return an error
     """
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    # validate start date is in the range of the dataset
+    date_check = session.query(func.min(Measurement.date), func.max(Measurement.date)).all()
+
+    if start < date_check[0][0] or start > date_check[0][1]:
+        session.close()
+        return "ERROR: start is either not within range of the dataset, or not formatted as YYY-MM-DD"
+
     
     # query the data and find min, max, avg from start date to end of data
     get_start_info = session.query(func.min(Measurement.tobs), func.max(Measurement.tobs), func.avg(Measurement.tobs)).\
@@ -184,7 +185,7 @@ def start_var(start):
 
     session.close()
 
-    # create a resutls list adn append a dict of the results
+    # create a resutls list and append a dict of the results
     results = []
 
     start_dict = {
@@ -207,9 +208,7 @@ def start_end(start, end):
         return "Error: either start date is after end date or either date is not foramtted as YYY-MM-DD."
 
     """
-        Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a specified start or start-end range.
-
-        For a specified start date and end date, calculate TMIN, TAVG, and TMAX for the dates from the start date to the end date, inclusive.
+        Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a specified start-end range inclusive.
     """
 
     # Create our session (link) from Python to the DB
@@ -251,7 +250,6 @@ def start_end(start, end):
     results.append(start_end_results)
 
     return jsonify(results)
-
 
 
 if __name__ == '__main__':

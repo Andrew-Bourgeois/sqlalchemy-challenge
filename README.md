@@ -4,7 +4,8 @@ UNC-CH-DA - Module 10 Challenge - sqlalchemy-challenge
 ### **INSTRUCTIONS**
 * Clone the repository to your local machine
 * cd into the "sqlalchemy-challenge/SurfsUp/" directory.
-* 
+* The Jupyter notebook file is 'climate.ipynb'
+* The Flask API file is 'app.py' (**NOTE:** during course instruction the variable names for the table references is in title-case. When I tried to match the requirements in the Module instructions and use lowercase variable names for the table references, it causes an error with 'station'. Title-casing the variable name per the course instruction resloves teh error.)
 
 ### **BACKGROUND**
 
@@ -93,3 +94,4 @@ A **start/end route** that:
 ### **RESOURCES**
 * Starter Files: https://static.bc-edx.com/data/dl-1-2/m10/lms/starter/Starter_Code.zip 
 * Sorting SQLAlchemy results in descending order: https://stackoverflow.com/questions/4186062/sqlalchemy-order-by-descending 
+* Calculating dates with datetime objects and timedelta: https://www.geeksforgeeks.org/python-datetime-timedelta-function/ 
